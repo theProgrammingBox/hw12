@@ -13,7 +13,12 @@ private:
 public:
     TQueue(int maxSize);
     TQueue(TQueue &source);
-    // TQueue(TQueue &&source) noexcept;
+    TQueue(TQueue &&source) noexcept;
+    ~TQueue();
+
+    // assignment operators
+    TQueue &operator=(TQueue &source);
+    TQueue &operator=(TQueue &&source) noexcept;
 
     // void enqueue(T data);
     // T dequeue();
@@ -23,41 +28,53 @@ public:
     // int countSize() const;
 
     // T front() const;
-
-    // void &operator=(TQueue &source);
-    // void &operator=(TQueue &&source) noexcept;
 };
 
 template <class T>
-TQueue<T>::TQueue(int maxSize) : maxSize(maxSize), size(0)
+TQueue<T>::TQueue(int maxSize) : maxSize(maxSize), size(0), head(std::make_unique<T>(maxSize))
 {
-    // head = new T[maxSize];
-    head = std::make_unique<T>(maxSize);
-    // tail = head;
-    tail = std::make_unique<T>(head.get());
 }
 
 template <class T>
-TQueue<T>::TQueue(TQueue &source)
+TQueue<T>::TQueue(TQueue &source) : maxSize(source.maxSize), size(source.size), head(std::make_unique<T>(source.maxSize))
 {
-    maxSize = source.maxSize;
-    size = source.size;
-    head = std::make_unique<T>(maxSize);
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < source.size; i++)
     {
         head[i] = source.head[i];
     }
-    tail = head + size;
 }
 
-// template <class T>
-// TQueue<T>::TQueue(TQueue &&source) noexcept : maxSize(source.maxSize), size(source.size), head(std::move(source.head)), tail(std::move(source.tail))
-// {
-//     source.head = nullptr;
-//     source.tail = nullptr;
-//     source.size = 0;
-//     source.maxSize = 0;
-// }
+template <class T>
+TQueue<T>::TQueue(TQueue &&source) noexcept : maxSize(source.maxSize), size(source.size), head(std::move(source.head))
+{
+    source.maxSize = 0;
+    source.size = 0;
+    source.head = nullptr;
+}
+
+template <class T>
+TQueue<T>::~TQueue()
+{
+}
+
+template <class T>
+TQueue<T> &TQueue<T>::operator=(TQueue &source) : maxSize(source.maxSize), size(source.size), head(std::make_unique<T>(source.maxSize))
+{
+    for (int i = 0; i < source.size; i++)
+    {
+        head[i] = source.head[i];
+    }
+    return *this;
+}
+
+template <class T>
+TQueue<T> &TQueue<T>::operator=(TQueue &&source) noexcept : maxSize(source.maxSize), size(source.size), head(std::move(source.head))
+{
+    source.maxSize = 0;
+    source.size = 0;
+    source.head = nullptr;
+    return *this;
+}
 
 // template <class T>
 // void TQueue<T>::enqueue(T data)
