@@ -14,16 +14,24 @@ private:
     int currentSize;
 
 public:
+
+    /*** CONSTRUCTOR & DESTRUCTOR ***/
+
     TQueue(int maxSize);
     TQueue(TQueue &source);
     TQueue(TQueue &&source) noexcept;
     ~TQueue();
+
+    /*** MUTATORS ***/
 
     TQueue &operator=(TQueue &source);
     TQueue &operator=(TQueue &&source) noexcept;
 
     void enqueue(T value);
     T dequeue();
+
+    /*** ACCESSORS ***/
+
     T front() const;
     int size() const;
     bool isEmpty() const;

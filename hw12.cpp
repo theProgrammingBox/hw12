@@ -1,4 +1,27 @@
+/*************************************************************************
+ * AUTHOR     	  : Justin Gea
+ * Assignment #12 : Templates (Queues)
+ * CLASS      	  : CS 1C
+ * SECTION    	  : MTWTTH 03:00pm - 05:35pm
+ * DUE DATE   	  : 07/22/2022
+ *************************************************************************/
+
 #include "TQueue.h"
+
+/**********************************************************
+ *
+ * Templates (Queues)
+ *_________________________________________________________
+ * This program will demonstrate the use of templates
+ * through the use of a dynamic queue. It will
+ * also demonstrate the class methods.
+ *_________________________________________________________
+ * INPUT:
+ *    	none
+ *
+ * OUTPUT:
+ *   	The program will output the dynamic queue
+ ***********************************************************/
 
 int main()
 {
